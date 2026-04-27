@@ -1,0 +1,6 @@
+@IveComeToBook.API_HostAddress = http://localhost:5123
+
+GET {{IveComeToBook.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

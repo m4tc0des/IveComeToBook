@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Shared\IveComeToBook.Communication\IveComeToBook.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\IveComeToBook.Exceptions\IveComeToBook.Exceptions.csproj" />
     <ProjectReference Include="..\IveComeToBook.Application\IveComeToBook.Application.csproj" />
