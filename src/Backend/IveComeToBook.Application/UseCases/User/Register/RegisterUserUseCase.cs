@@ -1,5 +1,6 @@
 ﻿using IveComeToBook.Communication.Requests;
 using IveComeToBook.Communication.Responses;
+using System.ComponentModel.DataAnnotations;
 
 namespace IveComeToBook.Application.UseCases.User.Register
 {
@@ -22,9 +23,10 @@ namespace IveComeToBook.Application.UseCases.User.Register
 
             var result = validator.Validate(request);
 
-            if (result.IsValid == false)
+            if (!result.IsValid)
             {
                 var errorMessages = result.Errors.Select(x => x.ErrorMessage);
+
                 throw new Exception();
             }
         }
