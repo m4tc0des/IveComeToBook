@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IveComeToBook.Communication.Requests;
+using IveComeToBook.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IveComeToBook.API.Controllers
@@ -8,7 +9,8 @@ namespace IveComeToBook.API.Controllers
     public class UserController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Register()
+        [ProducesResponseType(typeof(ResponseRegisterUserJson), StatusCodes.Status201Created)]
+        public IActionResult Register(RequestRegisterUserJson request)
         {
             return Created();
         }
