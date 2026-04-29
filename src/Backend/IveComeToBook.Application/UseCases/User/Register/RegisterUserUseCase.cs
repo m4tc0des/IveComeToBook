@@ -1,6 +1,7 @@
 ﻿using IveComeToBook.Communication.Requests;
 using IveComeToBook.Communication.Responses;
 using IveComeToBook.Exceptions.ExceptionsBase;
+using Mapster;
 
 namespace IveComeToBook.Application.UseCases.User.Register
 {
@@ -9,7 +10,8 @@ namespace IveComeToBook.Application.UseCases.User.Register
         public ResponseRegisterUserJson Execute(RequestRegisterUserJson request)
         {
             Validate(request);
-            //Validacoes de negocio, regras de negocio, etc
+
+            var user = request.Adapt<Domain.Entities.User>();
 
             return new ResponseRegisterUserJson
             {

@@ -19,8 +19,8 @@ namespace IveComeToBook.API.Filters
             {
                 ThrowUnknownException(context);
             }
-
         }
+
         private void HandleProjectException(ExceptionContext context)
         {
             if (context.Exception is ErrorOnValidationException)
@@ -34,10 +34,8 @@ namespace IveComeToBook.API.Filters
 
         private void ThrowUnknownException(ExceptionContext context)
         {
-            //if (context.Exception is ErrorOnValidationException)
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                context.Result = new ObjectResult(new ResponseErrorJson(ResourceMessagesException.UNKNOWN_ERROR));
-
+            context.Result = new ObjectResult(new ResponseErrorJson(ResourceMessagesException.UNKNOWN_ERROR));
         }
     }
 }
