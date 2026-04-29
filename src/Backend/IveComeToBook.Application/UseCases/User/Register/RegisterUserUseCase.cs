@@ -1,6 +1,6 @@
 ﻿using IveComeToBook.Communication.Requests;
 using IveComeToBook.Communication.Responses;
-using System.ComponentModel.DataAnnotations;
+using IveComeToBook.Exceptions.ExceptionsBase;
 
 namespace IveComeToBook.Application.UseCases.User.Register
 {
@@ -25,12 +25,10 @@ namespace IveComeToBook.Application.UseCases.User.Register
 
             if (!result.IsValid)
             {
-                var errorMessages = result.Errors.Select(x => x.ErrorMessage);
+                var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
 
-                throw new Exception();
+                throw new ErrorOnValidationException(errorMessages);
             }
         }
-
-        
     }
 }

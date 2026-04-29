@@ -129,4 +129,7 @@
   <data name="PASSWORD_TOO_SHORT" xml:space="preserve">
     <value>La contraseña es demasiado corta.</value>
   </data>
+  <data name="UNKNOWN_ERROR" xml:space="preserve">
+    <value>Error desconocido</value>
+  </data>
 </root>
