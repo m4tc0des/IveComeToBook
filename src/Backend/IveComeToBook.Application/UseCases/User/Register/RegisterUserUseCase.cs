@@ -1,5 +1,7 @@
-﻿using IveComeToBook.Communication.Requests;
+﻿using IveComeToBook.Application.Services.Cryptography;
+using IveComeToBook.Communication.Requests;
 using IveComeToBook.Communication.Responses;
+using IveComeToBook.Domain.Repositories.User;
 using IveComeToBook.Exceptions.ExceptionsBase;
 using Mapster;
 
@@ -7,11 +9,20 @@ namespace IveComeToBook.Application.UseCases.User.Register
 {
     public class RegisterUserUseCase
     {
-        public ResponseRegisterUserJson Execute(RequestRegisterUserJson request)
+        private readonly IUserWriteOnlyRepository _userWriteOnlyRepository;
+        private readonly IUserReadOnlyRepository _userReadOnlyRepository;
+
+        public async Task <ResponseRegisterUserJson> Execute(RequestRegisterUserJson request)
         {
             Validate(request);
 
+            var encryptedPassword = new PasswordEncripter();
+
             var user = request.Adapt<Domain.Entities.User>();
+
+            user.Password = encryptedPassword.Encrypt(request.Password);
+
+            await _userWriteOnlyRepository.Add(user);
 
             return new ResponseRegisterUserJson
             {
