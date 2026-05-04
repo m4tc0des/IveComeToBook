@@ -1,6 +1,7 @@
 using IveComeToBook.API.Filters;
 using IveComeToBook.API.Middleware;
 using IveComeToBook.Application;
+using IveComeToBook.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddMvc(options =>
 });
 
 builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
 
 var app = builder.Build();
 

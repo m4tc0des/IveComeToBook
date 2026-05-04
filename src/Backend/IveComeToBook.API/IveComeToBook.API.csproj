@@ -15,6 +15,7 @@
     <ProjectReference Include="..\..\Shared\IveComeToBook.Communication\IveComeToBook.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\IveComeToBook.Exceptions\IveComeToBook.Exceptions.csproj" />
     <ProjectReference Include="..\IveComeToBook.Application\IveComeToBook.Application.csproj" />
+    <ProjectReference Include="..\IveComeToBook.Infrastructure\IveComeToBook.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

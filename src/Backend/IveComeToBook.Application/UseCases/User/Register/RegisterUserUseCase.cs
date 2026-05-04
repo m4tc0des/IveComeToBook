@@ -4,6 +4,7 @@ using IveComeToBook.Communication.Responses;
 using IveComeToBook.Domain.Repositories.User;
 using IveComeToBook.Exceptions.ExceptionsBase;
 using Mapster;
+using MapsterMapper;
 
 namespace IveComeToBook.Application.UseCases.User.Register
 {
@@ -11,23 +12,27 @@ namespace IveComeToBook.Application.UseCases.User.Register
     {
         private readonly IUserWriteOnlyRepository _userWriteOnlyRepository;
         private readonly IUserReadOnlyRepository _userReadOnlyRepository;
+        private readonly IMapper _mapper;
 
+        public RegisterUserUseCase(IUserReadOnlyRepository userReadOnlyRepository, IUserWriteOnlyRepository userWriteOnlyRepository, IMapper mapper)
+        {
+            _userReadOnlyRepository = userReadOnlyRepository;
+            _userWriteOnlyRepository = userWriteOnlyRepository;
+            _mapper = mapper;
+        }
         public async Task <ResponseRegisterUserJson> Execute(RequestRegisterUserJson request)
         {
             Validate(request);
 
             var encryptedPassword = new PasswordEncripter();
 
-            var user = request.Adapt<Domain.Entities.User>();
+            var user = _mapper.Map<Domain.Entities.User>(request);
 
             user.Password = encryptedPassword.Encrypt(request.Password);
 
             await _userWriteOnlyRepository.Add(user);
 
-            return new ResponseRegisterUserJson
-            {
-                Name = request.Name
-            };
+            return _mapper.Map<ResponseRegisterUserJson>(user);
         }
 
         private void Validate(RequestRegisterUserJson request)
