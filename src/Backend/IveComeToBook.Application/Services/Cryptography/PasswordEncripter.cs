@@ -5,11 +5,15 @@ namespace IveComeToBook.Application.Services.Cryptography
 {
     public class PasswordEncripter
     {
+        private readonly string _additionalKey;
+        public PasswordEncripter(string additionalKey)
+        {
+            _additionalKey = additionalKey;
+        }
         public string Encrypt(string password)
         {
-            var adicionalKey = "7ef72c2a6a307c535152f99b0b2df36e";
 
-            var newPassword = $"{password}{adicionalKey}";
+            var newPassword = $"{password}{_additionalKey}";
 
             var bytes = Encoding.UTF8.GetBytes(newPassword);
             

@@ -61,6 +61,15 @@ namespace IveComeToBook.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The email already exist..
+        /// </summary>
+        public static string EMAIL_ALREADY_EXIST {
+            get {
+                return ResourceManager.GetString("EMAIL_ALREADY_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The email cannot be empty..
         /// </summary>
         public static string EMAIL_EMPTY {

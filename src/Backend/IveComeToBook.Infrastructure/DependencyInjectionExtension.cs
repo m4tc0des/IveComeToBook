@@ -15,8 +15,8 @@ namespace IveComeToBook.Infrastructure
         {
             var databaseType = configuration.GetConnectionString("DataBaseType");
 
-            var databaseTypeEnum = (DatabaseType)Enum.Parse(typeof(DatabaseType), databaseType);
-            
+            var databaseTypeEnum = (DatabaseType)Enum.Parse(typeof(DatabaseType), databaseType!);
+
             if (databaseTypeEnum == DatabaseType.SqlServer)
             {
                 AddDbContext_SqlServer(services, configuration);
@@ -64,8 +64,8 @@ namespace IveComeToBook.Infrastructure
 
         private static void AddRepositories(IServiceCollection services)
         {
-            services.AddScoped<IUserReadOnlyRepository, UserRepository > ();
-            services.AddScoped<IUserWriteOnlyRepository, UserRepository > ();
+            services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+            services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }

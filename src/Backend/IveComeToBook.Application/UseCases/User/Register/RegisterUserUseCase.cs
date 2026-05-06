@@ -3,6 +3,7 @@ using IveComeToBook.Communication.Requests;
 using IveComeToBook.Communication.Responses;
 using IveComeToBook.Domain.Repositories;
 using IveComeToBook.Domain.Repositories.User;
+using IveComeToBook.Exceptions;
 using IveComeToBook.Exceptions.ExceptionsBase;
 using MapsterMapper;
 
@@ -27,7 +28,7 @@ namespace IveComeToBook.Application.UseCases.User.Register
         }
         public async Task<ResponseRegisterUserJson> Execute(RequestRegisterUserJson request)
         {
-            Validate(request);
+            await Validate(request);
 
             var user = _mapper.Map<Domain.Entities.User>(request);
 
@@ -40,12 +41,18 @@ namespace IveComeToBook.Application.UseCases.User.Register
             return _mapper.Map<ResponseRegisterUserJson>(user);
         }
 
-        private void Validate(RequestRegisterUserJson request)
+        private async Task Validate(RequestRegisterUserJson request)
         {
             var validator = new RegisterUserValidator();
 
             var result = validator.Validate(request);
+            
+            var emailExist = _userReadOnlyRepository.ExistActiveUserWithEmail(request.Email).GetAwaiter().GetResult();
 
+            if (emailExist)
+            {
+                result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_EXIST));
+            }
             if (!result.IsValid)
             {
                 var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();

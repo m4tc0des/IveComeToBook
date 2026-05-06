@@ -3,17 +3,18 @@ using IveComeToBook.Application.Services.Mapping;
 using IveComeToBook.Application.UseCases.User.Register;
 using Mapster;
 using MapsterMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IveComeToBook.Application
 {
     public static class DependencyInjectionExtension
     {
-        public static void AddApplication(this IServiceCollection services)
+        public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
             AddMapperConfigurations(services);
             AddUseCases(services);
-            AddPasswordEncripter(services);
+            AddPasswordEncripter(services, configuration);
         }
 
         private static void AddMapperConfigurations(IServiceCollection services)
@@ -32,9 +33,10 @@ namespace IveComeToBook.Application
             services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
         }
 
-        private static void AddPasswordEncripter(IServiceCollection services)
+        private static void AddPasswordEncripter(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped(options => new PasswordEncripter());
+            var additionalKey = configuration.GetValue<string>("Settings:Password:AdditionalKey");
+            services.AddScoped(options => new PasswordEncripter(additionalKey!));
         }
     }
 }
