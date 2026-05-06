@@ -13,23 +13,30 @@ Infrastructure (Implementação SOLID): Camada de persistência que aplica Inter
 Suporte Multi-DB: Interfaces intermediárias que permitem a comunicação transparente com SQL Server, PostgreSQL e MySQL, facilitando trocas de infraestrutura sem impacto no core.
 
 API: Gerenciamento de comunicação HTTP, filtros globais e inicialização.
+## Persistência de Dados e Multi-DB
+Uma das principais evoluções do projeto foi a transição para uma infraestrutura de dados de alto desempenho:
 
+Dapper (Micro-ORM): Substituição estratégica do Entity Framework pelo Dapper, visando performance bruta, controle total sobre o dialeto SQL e redução do overhead de memória.
+
+Suporte Multi-DB Nativo: Interfaces que permitem a comunicação transparente com SQL Server, PostgreSQL e MySQL.
+
+Auto-Bootstrap de Infraestrutura: Implementação de uma lógica de migração personalizada (DatabaseMigration) que identifica o provedor de banco de dados no startup, verifica a existência da base e garante a integridade do schema automaticamente, ideal para ambientes de containers (Docker).
 ## Camadas Transversais (Shared)
 Communication: Camada dedicada exclusivamente aos contratos da API (Requests/Responses), garantindo que mudanças internas não quebrem a integração com o cliente externo.
 
 Exceptions & i18n: Centralização de erros com suporte nativo a múltiplos idiomas (Português, Inglês, Espanhol e Francês) via arquivos de recurso (.resx).
 
 ## Decisões Técnicas de Engenharia
-Mapeamento com Mapster: Substituição estratégica do AutoMapper visando performance e conformidade com licenciamento MIT.
+Mapeamento com Mapster: Escolhido pela alta performance e conformidade com licenciamento MIT.
 
-Segurança de Dados: Configuração para ignorar o campo Password no mapeamento automático, forçando o tratamento manual e seguro de credenciais.
+Segurança: Configuração rigorosa de mapeamento para proteção de credenciais e uso de Fluent Validation para integridade de dados.
 
-Tratamento Global de Erros: Implementação de ExceptionFilter para capturar exceções, mascarar o StackTrace em produção e padronizar as respostas para o front-end.
+Tratamento Global de Erros: Implementação de ExceptionFilter para padronização de respostas e mascaramento de StackTrace em produção.
 
-Validação Robusta: Uso de Fluent Validation para garantir a integridade dos dados antes que cheguem ao domínio.
+Engenharia de Software: Uso de Conventional Commits e fluxos de Pull Request para garantir um histórico de código limpo e revisado.
 
 ## Propósito do Projeto
-Este projeto reflete minha maturidade de mais de 5 anos no suporte técnico avançado. Ao vivenciar sistemas onde falhas na organização geravam atrasos de semanas em correções simples, projetei o IveComeToBook para ser o oposto: um software onde o SOLID e o DDD tornam a manutenção ágil, testável e segura para o negócio.
+Este projeto reflete minha maturidade de mais de 5 anos no mercado de tecnologia. Ao vivenciar sistemas onde a dívida técnica gerava atrasos críticos, projetei o IveComeToBook para ser o oposto: um software onde o SOLID, o DDD e o uso consciente de Micro-ORMs tornam a manutenção ágil, o sistema altamente escalável e o negócio seguro.
 
 ## Autor
 Mateus Silva - Desenvolvedor Backend .NET
