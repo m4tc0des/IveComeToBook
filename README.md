@@ -1,41 +1,35 @@
 # IveComeToBook API
+Sistema robusto focado na gestão de venda e aluguel de livros, desenvolvido com práticas de excelência em engenharia de software no ecossistema .NET 8. O projeto prioriza uma arquitetura desacoplada, segura, de alta performance e preparada para o mercado global.
 
-Sistema focado na gestão de venda e aluguel de livros, desenvolvido com práticas modernas de engenharia de software no ecossistema **.NET 8**. O projeto prioriza uma arquitetura desacoplada, segura e de alta performance.
+## Arquitetura e Padrões (Clean Architecture & DDD)
+O projeto é estruturado sob os pilares do Domain-Driven Design (DDD) e da Clean Architecture, garantindo que a lógica de negócio seja independente de frameworks e bancos de dados:
 
----
+Domain: O núcleo do sistema, contendo Entidades puras (User) e uma classe base (EntityBase) para padronização de IDs e auditoria.
 
-## Funcionalidades e Implementações Atuais
+Application: Orquestração de serviços e lógica de mapeamento, organizada via Extension Methods para manter o Program.cs limpo e modular.
 
-### Domínio Base
-* **EntityBase:** Estruturação de uma classe base para padronização de identificadores (IDs) e propriedades de auditoria.
-* **User Entity:** Implementação da entidade central de usuários, servindo como base para autenticação e perfis no sistema.
+Infrastructure (Implementação SOLID): Camada de persistência que aplica Interface Segregation (ISP) e Dependency Inversion (DIP).
 
-### Tratamento Global de Erros
-* **ExceptionFilter:** Implementação de um filtro customizado para captura de exceções em toda a API.
-* **Segurança:** Garante que erros internos críticos não exponham detalhes sensíveis (StackTrace) ao cliente.
-* **Padronização:** Respostas de erro consistentes e amigáveis para o consumo do front-end.
+Suporte Multi-DB: Interfaces intermediárias que permitem a comunicação transparente com SQL Server, PostgreSQL e MySQL, facilitando trocas de infraestrutura sem impacto no core.
 
-### Mapeamento de Objetos com Mapster
-* **Conversão Inteligente:** Uso do Mapster para transformar DTOs (Requests) em Entidades de Domínio de forma eficiente.
-* **Decisão Técnica:** Substituição estratégica do *AutoMapper* para evitar vulnerabilidades de segurança presentes em versões legadas gratuitas e garantir conformidade com licenciamento MIT.
-* **Segurança de Dados:** Configuração específica para **ignorar o campo Password** durante o mapeamento automático, forçando o tratamento seguro e manual de credenciais.
+API: Gerenciamento de comunicação HTTP, filtros globais e inicialização.
 
-### Arquitetura e Injeção de Dependência (DI)
-* **Extension Methods:** Organização da injeção de dependência da camada de *Application* via métodos de extensão.
-* **Clean Program.cs:** O arquivo de inicialização da API permanece limpo, delegando as configurações internas para suas respectivas camadas.
+## Camadas Transversais (Shared)
+Communication: Camada dedicada exclusivamente aos contratos da API (Requests/Responses), garantindo que mudanças internas não quebrem a integração com o cliente externo.
 
----
+Exceptions & i18n: Centralização de erros com suporte nativo a múltiplos idiomas (Português, Inglês, Espanhol e Francês) via arquivos de recurso (.resx).
 
-## Arquitetura Implementada
+## Decisões Técnicas de Engenharia
+Mapeamento com Mapster: Substituição estratégica do AutoMapper visando performance e conformidade com licenciamento MIT.
 
-O projeto segue os princípios da **Clean Architecture**, dividindo responsabilidades para facilitar a manutenção:
+Segurança de Dados: Configuração para ignorar o campo Password no mapeamento automático, forçando o tratamento manual e seguro de credenciais.
 
-* **Domain:** Entidades de negócio puras (`User`, `EntityBase`).
-* **Application:** Regras de mapeamento e lógica de injeção de serviços.
-* **API:** Gerenciamento de comunicação HTTP, filtros globais e inicialização.
+Tratamento Global de Erros: Implementação de ExceptionFilter para capturar exceções, mascarar o StackTrace em produção e padronizar as respostas para o front-end.
 
----
+Validação Robusta: Uso de Fluent Validation para garantir a integridade dos dados antes que cheguem ao domínio.
 
-## 👨‍💻 Autor
+## Propósito do Projeto
+Este projeto reflete minha maturidade de mais de 5 anos no suporte técnico avançado. Ao vivenciar sistemas onde falhas na organização geravam atrasos de semanas em correções simples, projetei o IveComeToBook para ser o oposto: um software onde o SOLID e o DDD tornam a manutenção ágil, testável e segura para o negócio.
 
-**Mateus Silva Santos** *Desenvolvedor Backend .NET*
+## Autor
+Mateus Silva - Desenvolvedor Backend .NET
