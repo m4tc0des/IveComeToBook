@@ -23,6 +23,7 @@ Suporte Multi-DB Nativo: Interfaces que permitem a comunicação transparente co
 Auto-Bootstrap de Infraestrutura: Implementação de uma lógica de migração personalizada (DatabaseMigration) que identifica o provedor de banco de dados no startup, verifica a existência da base e garante a integridade do schema automaticamente, ideal para ambientes de containers (Docker).
 ## Camadas Transversais (Shared)
 Communication: Camada dedicada exclusivamente aos contratos da API (Requests/Responses), garantindo que mudanças internas não quebrem a integração com o cliente externo.
+Communication & Validation: Camada dedicada aos contratos da API (Requests/Responses). Utiliza FluentValidation para implementar uma camada de defesa robusta, garantindo que apenas dados válidos avancem para o processamento de negócio, com mensagens de erro padronizadas e internacionalizadas.
 
 Exceptions & i18n: Centralização de erros com suporte nativo a múltiplos idiomas (Português, Inglês, Espanhol e Francês) via arquivos de recurso (.resx).
 
